@@ -5,13 +5,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-# AttentionsiteDTI
+
 def scaled_dot_product(q, k, v, mask=None):
-    # embedding
+    
     d_k = q.size()[-1]
-    # Q dot K
     attn_logits = torch.matmul(q, k.transpose(-2, -1))
-    # scale
     attn_logits = attn_logits / math.sqrt(d_k)
     if mask is not None:
         attn_logits = attn_logits.masked_fill(mask == 0, -9e15)
@@ -30,31 +28,21 @@ class MultiHeadAttention(nn.Module):
         self.num_heads = num_heads
         self.head_dim = embed_dim // num_heads
 
-        # Stack all weight matrices 1...h together for efficiency
-        # Note that in many implementations you see "bias=False" which is optional
         self.qkv_proj = nn.Linear(input_dim, 3 * embed_dim)
         self.o_proj = nn.Linear(embed_dim, embed_dim)
 
         self._reset_parameters()
 
     def _reset_parameters(self):
-        # Original Transformer initialization, see PyTorch documentation
         nn.init.xavier_uniform_(self.qkv_proj.weight)
         self.qkv_proj.bias.data.fill_(0)
         nn.init.xavier_uniform_(self.o_proj.weight)
         self.o_proj.bias.data.fill_(0)
 
     def forward(self, x, mask=None, return_attention=False):
-        # print("x:",x.shape)
         batch_size, seq_length, embed_dim = x.size()
-        # print("batch_size:",batch_size.shape)
-        # print("seq_length:",seq_length.shape)
-        # print("embed_dim:",embed_dim)
         qkv = self.qkv_proj(x)
-        # print("qkv:", qkv.shape)
-        # Separate Q, K, V from linear output
         qkv = qkv.reshape(batch_size, seq_length, self.num_heads, 3 * self.head_dim)
-        # print("qkv after reshape:", qkv.shape)
 
         qkv = qkv.permute(0, 2, 1, 3)  # [Batch, Head, SeqLen, Dims]
         # print("qkv after permute:", qkv.shape)
