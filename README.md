@@ -18,7 +18,7 @@ The required python dependencies are given in requirements.txt.
 Clone this Github repo and set up a new conda environment. 
 ```
 # create a new conda environment
-$ conda create --name motifgt python=3.8
+$ conda create --name motifgt python=3.11
 $ conda activate motifgt
 
 # install requried python dependencies
