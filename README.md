@@ -9,7 +9,7 @@ and predicts potential interactions with bilinear attention.
 Then, the structural-level association patterns of drug molecules and proteins are connected via a bilinear attention network.
 
 ## Framework
-<!---[MotifGT-DTI](imgs/MotifGT-DTI.png)--->!
+<!---[MotifGT-DTI](imgs/MotifGT-DTI.png)--->
 ## System Requirements
 The source code developed in Python 3.11 using PyTorch 2.0.1. 
 The required python dependencies are given in requirements.txt. 
