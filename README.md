@@ -38,7 +38,7 @@ Since this experiment needs to use to the .pdb file, the first run may take a lo
 It is recommended to run feature_pre.py for feature preprocessing after downloading all pdb files to speed up the subsequent training.
 
 
-## Run DrugBAN on Our Data to Reproduce Results
+## Run MotifGT-DTI on Our Data to Reproduce Results
 To train MotifGT-DTI, you just need to run main.py.
 
 
